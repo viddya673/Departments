@@ -1,6 +1,8 @@
 package net.javaprojects.Departments.Service;
 
 import net.javaprojects.Departments.Entity.Department;
+import net.javaprojects.Departments.Error.DepartmentNotFoundException;
+
 import java.util.List;
 
 public interface DepartmentService {
@@ -8,7 +10,7 @@ public interface DepartmentService {
 
     public List<Department> getDepartments();
 
-    public Department fetchDepartmentbyId(Long departmentId);
+    public Department fetchDepartmentbyId(Long departmentId) throws DepartmentNotFoundException;
 
     public void deleteDepartmentById(Long departmentId);
 

@@ -2,8 +2,11 @@ package net.javaprojects.Departments.Controller;
 
 import jakarta.validation.Valid;
 import net.javaprojects.Departments.Entity.Department;
+import net.javaprojects.Departments.Error.DepartmentNotFoundException;
 import net.javaprojects.Departments.Service.DepartmentService;
 import net.javaprojects.Departments.Service.DepartmentServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +18,11 @@ public class DepartmentController {
     @Autowired
     private DepartmentService deptService;
 
+    private final Logger LOGGER = LoggerFactory.getLogger(DepartmentController.class);
+
     @PostMapping("/departments/add")
     public Department saveDepartment(@Valid @RequestBody Department department){
+        LOGGER.info("Inside save department of controller");
         return deptService.saveDepartment(department);
     }
 
@@ -26,7 +32,7 @@ public class DepartmentController {
     }
 
     @GetMapping("/departments/get/{id}")
-    public Department fetchDepartmentById(@PathVariable("id") Long departmentId){
+    public Department fetchDepartmentById(@PathVariable("id") Long departmentId) throws DepartmentNotFoundException {
         return deptService.fetchDepartmentbyId(departmentId);
     }
 
