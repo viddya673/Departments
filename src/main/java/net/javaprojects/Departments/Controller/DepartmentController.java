@@ -1,5 +1,6 @@
 package net.javaprojects.Departments.Controller;
 
+import jakarta.validation.Valid;
 import net.javaprojects.Departments.Entity.Department;
 import net.javaprojects.Departments.Service.DepartmentService;
 import net.javaprojects.Departments.Service.DepartmentServiceImpl;
@@ -15,7 +16,7 @@ public class DepartmentController {
     private DepartmentService deptService;
 
     @PostMapping("/departments/add")
-    public Department saveDepartment(@RequestBody Department department){
+    public Department saveDepartment(@Valid @RequestBody Department department){
         return deptService.saveDepartment(department);
     }
 
@@ -39,5 +40,10 @@ public class DepartmentController {
     public Department updateDepartment(@PathVariable("id") Long departmentId,
                                         @RequestBody Department department){
         return deptService.updateDepartment(departmentId, department);
+    }
+
+    @GetMapping("/departments/get/by_name/{name}")
+    public Department fetchDepartmentByName(@PathVariable("name") String departmentName) {
+        return deptService.fetchDepartmentByName(departmentName);
     }
 }
